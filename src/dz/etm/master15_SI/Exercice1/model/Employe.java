@@ -16,7 +16,8 @@ import java.util.Date;
  */
 public class Employe {
 	//Définition des attributs
-	private int id,depart;
+	private int id;
+	private Departement departement;
 	private String name, surname;
 	private Date dateOfBirth;
 	private boolean maried;
@@ -45,17 +46,20 @@ public class Employe {
 		this.surname = surname;
 	}
 	
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	public String getDateOfBirth() {
+		String pattern = "dd/MM/yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String date = simpleDateFormat.format(dateOfBirth);
+		return date;
 	}
 	public void setDateOfBirth(Date dOB) {
 		this.dateOfBirth = dOB;
 	}
-	public int getDepart() {
-		return depart;
+	public Departement getDepartement() {
+		return departement;
 	}
-	public void setDepart(int depart) {
-		this.depart = depart;
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
 	}
 	public boolean getMaried() {
 		return maried;
@@ -85,7 +89,7 @@ public class Employe {
 		this.id = id;
 	}
 	public Employe(int id, String name, String surname, String dateOfBirth, char sexe,boolean maried,
-			double salary, int depart) throws ParseException {
+			double salary, Departement depart) throws ParseException {
 		super();
 		this.id = id;
 		this.name = name;
@@ -93,7 +97,7 @@ public class Employe {
 		//TODO SWITCH DATE
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		setDateOfBirth(sdf.parse(dateOfBirth));
-		this.depart = depart;
+		setDepartement(depart);
 		this.maried = maried;
 		this.salary = salary;
 		this.sexe = sexe;
@@ -102,40 +106,52 @@ public class Employe {
 	
 	
 	//5- Implémenter les méthodes
-	
-	
-	public int getAge(Date dateOfBirth) {
+	public String getNameDepartement() {
+		return departement.getLibelle();
+	}
+	public int getAge() {
 		 Calendar today = Calendar.getInstance();
-		    Calendar birthDate = Calendar.getInstance();
-
+		 String birthDate = getDateOfBirth();
+		 Calendar cBithDay = Calendar.getInstance();
+		 cBithDay.setTime(dateOfBirth);
 		    int age = 0;
 
-		    birthDate.setTime(dateOfBirth);
-		    if (birthDate.after(today)) {
-		        throw new IllegalArgumentException("Can't be born in the future");
+		    //birthDate.setTime(getDateOfBirth());
+		    if (cBithDay.after(today)) {
+		        throw new IllegalArgumentException("La date de naissance est supérieur à celle d'aujourd'hui!");
 		    }
 		    
 
-		    age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+		    age = today.get(Calendar.YEAR) - cBithDay.get(Calendar.YEAR);
 
 		    // If birth date is greater than todays date (after 2 days adjustment of leap year) then decrement age one year   
-		    if ( (birthDate.get(Calendar.DAY_OF_YEAR) - today.get(Calendar.DAY_OF_YEAR) > 3) ||
-		            (birthDate.get(Calendar.MONTH) > today.get(Calendar.MONTH ))){
+		    if ( (cBithDay.get(Calendar.DAY_OF_YEAR) - today.get(Calendar.DAY_OF_YEAR) > 3) ||
+		            (cBithDay.get(Calendar.MONTH) > today.get(Calendar.MONTH ))){
 		        age--;
 
 		     // If birth date and todays date are of same month and birth day of month is greater than todays day of month then decrement age
-		    }else if ((birthDate.get(Calendar.MONTH) == today.get(Calendar.MONTH )) &&
-		              (birthDate.get(Calendar.DAY_OF_MONTH) > today.get(Calendar.DAY_OF_MONTH ))){
+		    }else if ((cBithDay.get(Calendar.MONTH) == today.get(Calendar.MONTH )) &&
+		              (cBithDay.get(Calendar.DAY_OF_MONTH) > today.get(Calendar.DAY_OF_MONTH ))){
 		        age--;
 		    }
-		    if (age <= 18) throw new IllegalArgumentException("This employee Can't work, He has -18 years");
+		    if (age <= 18) throw new IllegalArgumentException("Cet employé ne peut pas travailler, il a -18 ans");
 		    else return age;
 		}
 	@Override
 	public String toString() {
 		return "Employe ID=" + getId() + ", Nom=" + getName() + ", Prénom=" + getSurname()
-				+ ", Age=" + getAge(getDateOfBirth());
+				+ ", Age=" + getAge();
 	}
 	
 	
+	public String toStringMarried() {
+		if (getMaried()) return "Oui";
+		else return "Non";
+		
+	}
+	public String situationEmploye() {
+		if (getMaried()) return "Marié(e)";
+		else return "Célibataire";
+		
+	}
 }
