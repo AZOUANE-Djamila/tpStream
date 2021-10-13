@@ -1,0 +1,81 @@
+La liste des employés ayant moins de 60 ans
+
+Employe ID=5, Nom=Boulehbel, Prénom=Mohamed, Age=59
+Employe ID=6, Nom=Ait Kaci, Prénom=Amina, Age=59
+Employe ID=7, Nom=Bouteldja, Prénom=Zakaria, Age=59
+
+La liste des hommes mariés :
+Employe ID=1, Nom=Mohamedi, Prénom=Mohamed, Age=76
+Employe ID=5, Nom=Boulehbel, Prénom=Mohamed, Age=59
+
+____________________________________________________________________________________
+
+La liste des ployés triés alphabetiquement :
+Employe ID=6, Nom=Ait Kaci, Prénom=Amina, Age=59
+Employe ID=5, Nom=Boulehbel, Prénom=Mohamed, Age=59
+Employe ID=7, Nom=Bouteldja, Prénom=Zakaria, Age=59
+Employe ID=4, Nom=Kaidi, Prénom=Rabie, Age=65
+Employe ID=3, Nom=Loubar, Prénom=Fares, Age=66
+Employe ID=1, Nom=Mohamedi, Prénom=Mohamed, Age=76
+Employe ID=2, Nom=Rih, Prénom=Amina, Age=66
+
+La liste des employés triée par âge et s’ils ont le même âge par salaire décroissant_______________________________________
+Nom & Prénom: Mohamedi Mohamed - Age 76 - Salaire:5555.0
+Nom & Prénom: Rih Amina - Age 66 - Salaire:44444.0
+Nom & Prénom: Loubar Fares - Age 66 - Salaire:33333.0
+Nom & Prénom: Kaidi Rabie - Age 65 - Salaire:55555.0
+Nom & Prénom: Ait Kaci Amina - Age 59 - Salaire:4444400.0
+Nom & Prénom: Boulehbel Mohamed - Age 59 - Salaire:66666.0
+Nom & Prénom: Bouteldja Zakaria - Age 59 - Salaire:33333.0
+
+Récupérer une liste des 2 employés à partir du 3ième_______________________________________
+Nom & Prénom: Loubar Fares - Age 66 - Salaire:33333.0
+Nom & Prénom: Kaidi Rabie - Age 65 - Salaire:55555.0
+
+La liste sans répétition des prénoms des employés___________________________________________
+Mohamedi
+Rih
+Loubar
+Kaidi
+Boulehbel
+Ait Kaci
+Bouteldja
+Nom & Prénom: Loubar Fares - Age 66 - Salaire:33333.0
+Nom & Prénom: Kaidi Rabie - Age 65 - Salaire:55555.0
+
+Grouper les employés par id de département. Afficher le résultat _____________________________
+
+Département: Finances & comptabilité   
+   Nom   | Prénom| DateNaiss  |Sexe| Age | Est marié(e)? | Salaire
+- Rih | Amina | 01/11/1954 | f | 66 | Oui | 44444.0
+- Kaidi | Rabie | 20/08/1956 | f | 65 | Oui | 55555.0
+- Boulehbel | Mohamed | 11/12/1961 | m | 59 | Oui | 66666.0
+
+
+Département: Ressources Humaines   
+   Nom   | Prénom| DateNaiss  |Sexe| Age | Est marié(e)? | Salaire
+- Mohamedi | Mohamed | 08/05/1945 | m | 76 | Oui | 5555.0
+- Ait Kaci | Amina | 18/03/1962 | f | 59 | Non | 4444400.0
+
+
+Département: Informatique   
+   Nom   | Prénom| DateNaiss  |Sexe| Age | Est marié(e)? | Salaire
+- Loubar | Fares | 20/08/1955 | m | 66 | Non | 33333.0
+- Bouteldja | Zakaria | 05/07/1962 | m | 59 | Non | 33333.0
+
+{Finances & comptabilité=[Employe ID=2, Nom=Rih, Prénom=Amina, Age=66, Employe ID=4, Nom=Kaidi, Prénom=Rabie, Age=65, Employe ID=5, Nom=Boulehbel, Prénom=Mohamed, Age=59], Ressources Humaines=[Employe ID=1, Nom=Mohamedi, Prénom=Mohamed, Age=76, Employe ID=6, Nom=Ait Kaci, Prénom=Amina, Age=59], Informatique=[Employe ID=3, Nom=Loubar, Prénom=Fares, Age=66, Employe ID=7, Nom=Bouteldja, Prénom=Zakaria, Age=59]}
+{false=[Employe ID=3, Nom=Loubar, Prénom=Fares, Age=66, Employe ID=6, Nom=Ait Kaci, Prénom=Amina, Age=59, Employe ID=7, Nom=Bouteldja, Prénom=Zakaria, Age=59], true=[Employe ID=1, Nom=Mohamedi, Prénom=Mohamed, Age=76, Employe ID=2, Nom=Rih, Prénom=Amina, Age=66, Employe ID=4, Nom=Kaidi, Prénom=Rabie, Age=65, Employe ID=5, Nom=Boulehbel, Prénom=Mohamed, Age=59]}
+
+chaque employé son nom et prénom ainsi que le nom de son département___________________________________________
+Employe ID=1, Nom=Mohamedi, Prénom=Mohamed, Age=76 Departement [ID=1, Libelle=Ressources Humaines]
+Employe ID=2, Nom=Rih, Prénom=Amina, Age=66 Departement [ID=2, Libelle=Finances & comptabilité]
+Employe ID=3, Nom=Loubar, Prénom=Fares, Age=66 Departement [ID=3, Libelle=Informatique]
+Employe ID=4, Nom=Kaidi, Prénom=Rabie, Age=65 Departement [ID=2, Libelle=Finances & comptabilité]
+Employe ID=5, Nom=Boulehbel, Prénom=Mohamed, Age=59 Departement [ID=2, Libelle=Finances & comptabilité]
+Employe ID=6, Nom=Ait Kaci, Prénom=Amina, Age=59 Departement [ID=1, Libelle=Ressources Humaines]
+Employe ID=7, Nom=Bouteldja, Prénom=Zakaria, Age=59 Departement [ID=3, Libelle=Informatique]
+
+Afficher le salaire minimum, maximum et moyen____________________________________________
+Le salaire minimum est: 5555.0
+Le salaire maximum est: 4444400.0
+La moyenne des salaires est : 669040.8571428572
