@@ -2,8 +2,6 @@ package dz.etm.master15_SI.Exercice1.model;
 import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -111,7 +109,6 @@ public class Employe {
 	}
 	public int getAge() {
 		 Calendar today = Calendar.getInstance();
-		 String birthDate = getDateOfBirth();
 		 Calendar cBithDay = Calendar.getInstance();
 		 cBithDay.setTime(dateOfBirth);
 		    int age = 0;

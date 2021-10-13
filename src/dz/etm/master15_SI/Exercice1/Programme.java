@@ -1,21 +1,15 @@
 package dz.etm.master15_SI.Exercice1;
 
-import java.util.Date;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
-//import javafx.util.Pair;  
+
+import javafx.util.Pair;
 
 import dz.etm.master15_SI.Exercice1.model.Departement;
 import dz.etm.master15_SI.Exercice1.model.Employe;
@@ -23,33 +17,14 @@ import dz.etm.master15_SI.Exercice1.model.Employe;
 public class Programme {
 
 	public static void main(String[] args) throws ParseException {
-		// TODO Auto-generated method stub
-		/*Employe emp = new Employe(1);//TODO GENERATE ID AUTOMIATIQUELY
-		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-	    System.out.println("Enter surname\t");
-	    String surname = myObj.nextLine();// Read user input
-	    emp.setSurname(surname);	    
-	    System.out.println("Enter name\t");
-	    String name = myObj.nextLine();// Read user input
-	    emp.setName(name);
-	    
-	    System.out.println("Enter your date of birth\t");
-	    Scanner scanner = new Scanner(System.in);
-	  //read the desired input
-	   String dateAsString = scanner.next();
-	   String pattern = "dd/MM/yyyy";
-	   SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-	  //parse the String as a Date
-	  Date desiredDate = sdf.parse(dateAsString);
-
-	  emp.setDateOfBirth(desiredDate);
-	  int age = emp.getAge(emp.getDateOfBirth());
-	    System.out.println(emp.toString());*/
-
 	    ArrayList<Employe> employesList = new ArrayList<Employe>();  
 	    Departement DRh = new Departement(1,"Ressources Humaines");
 	    Departement DFc = new Departement(2,"Finances & comptabilité");
 	    Departement DIn = new Departement(3,"Informatique");
+	    List<Departement> departementsList = new ArrayList<Departement>();
+	    departementsList.add(DRh);
+	    departementsList.add(DFc);
+	    departementsList.add(DIn);
 	    //Adding Employees
 		employesList.add(new Employe(1,"Mohamedi","Mohamed","08/05/1945",'m',true,5555.00,DRh));
 		employesList.add(new Employe(2,"Rih","Amina","01/11/1954",'f',true,44444.00,DFc));
@@ -78,8 +53,7 @@ public class Programme {
         .collect(Collectors.toList()).forEach(System.out::println);
 		
 		//TODO 9.	Récupérer une liste des employés triée par âge et s’ils ont le même âge par salaire décroissant ;  Stream.sorted() + Comparator.comparing() + Comparator.thenComparing()
-		System.out.println("\n____________________________________________________________________________________");
-		System.out.println("\nLa liste des employés triée par âge et s’ils ont le même âge par salaire décroissant");
+		System.out.println("\nLa liste des employés triée par âge et s’ils ont le même âge par salaire décroissant_______________________________________");
 		 	Comparator<Employe> AgeComparator = Comparator.comparing(Employe::getAge);
 	        Comparator<Employe> salaryAgeComparator = AgeComparator.thenComparing(Employe::getSalary).reversed();
 	        List<Employe> sortedList = employesList.stream().sorted(salaryAgeComparator).collect(Collectors.toList());
@@ -89,7 +63,6 @@ public class Programme {
 	        }
 	        
 	    //TODO Récupérer une liste de 2 employés à partir du 3ième ;Stream.limit() + Stream.skeep()
-			System.out.println("\n____________________________________________________________________________________");
 			System.out.println("\nRécupérer une liste des 2 employés à partir du 3ième_______________________________________");
 			Stream<Employe> sEmp = employesList.stream();
 			List<Employe> limit2 = sEmp.skip(2).limit(2).collect(Collectors.toList());
@@ -117,19 +90,20 @@ public class Programme {
 		System.out.println(employesList.stream().collect(Collectors.partitioningBy(Employe::getMaried)));
 
 		//TODO	Faire une jointure entre la liste des employés et des départements. Puis afficher pour chaque employé son nom et prénom ainsi que le nom de son département      Stream.flatMap() + Stream.map() + classe javax.util.Pair<K,V>
-		//Pair<Employe, Departement> p = new Pair<>();  
-
-		//List<Employe> employesdep = employesList.stream().map(e -> e.getName()).flatMap(d -> d.stream()).collect(Collectors.toList());
+        System.out.println("\nchaque employé son nom et prénom ainsi que le nom de son département___________________________________________");
+		List<Pair<Employe,Departement>> listEmpDep = employesList.stream()
+															   .flatMap(e-> departementsList.stream().filter(d-> d.getIdDep() == e.getDepartement().getIdDep()) // jointure au lieu du produit cartésien
+															   .map(d-> new Pair<Employe,Departement>(e,d)))
+															   .collect(Collectors.toList());
+		listEmpDep.forEach(ed->System.out.println(ed.getKey()+ " "+ed.getValue()));
 		  	
-		System.out.println("\n____________________________________________________________________________________");
-
-		//TODO	Afficher le salaire minimum, maximum et moyen ;		         Stream.collect() + Collectors.SummarizingDouble()
+		//TODO	Afficher le salaire minimum, maximum et moyen
+        System.out.println("\nAfficher le salaire minimum, maximum et moyen____________________________________________");
 		DoubleSummaryStatistics salaryMinMax = employesList.stream().collect(Collectors.summarizingDouble(Employe::getSalary));
 		System.out.println("Le salaire minimum est: "+salaryMinMax.getMin());
 		System.out.println("Le salaire maximum est: "+salaryMinMax.getMax());
+		System.out.println("La moyenne des salaires est : "+salaryMinMax.getAverage());
+
 	}
 
-	private static Departement Departement(int i, String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}}
+	}

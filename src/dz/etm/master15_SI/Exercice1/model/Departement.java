@@ -1,13 +1,13 @@
 package dz.etm.master15_SI.Exercice1.model;
 
 public class Departement {
-	private int id;
+	private int idDep;
 	private String libelle;
-	public int getId() {
-		return id;
+	public int getIdDep() {
+		return idDep;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdDep(int idDep) {
+		this.idDep = idDep;
 	}
 	public String getLibelle() {
 		return libelle;
@@ -15,14 +15,14 @@ public class Departement {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	public Departement(int id, String libelle) {
+	public Departement(int idDep, String libelle) {
 		super();
-		this.id = id;
+		this.idDep = idDep;
 		this.libelle = libelle;
 	}
 	@Override
 	public String toString() {
-		return "Departement [ID=" + getId() + ", Libelle=" + getLibelle() + "]";
+		return "Departement [ID=" + getIdDep() + ", Libelle=" + getLibelle() + "]";
 	}
 	
 	
