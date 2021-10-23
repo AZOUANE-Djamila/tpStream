@@ -92,7 +92,6 @@ public class Employe {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
-		//TODO SWITCH DATE
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		setDateOfBirth(sdf.parse(dateOfBirth));
 		setDepartement(depart);

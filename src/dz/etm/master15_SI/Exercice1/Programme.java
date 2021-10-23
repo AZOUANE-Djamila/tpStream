@@ -47,12 +47,12 @@ public class Programme {
 		.forEach(System.out::println);
 		
 		System.out.println("\n____________________________________________________________________________________");
-		//TODO 8.	Récupérer une liste des employés triée alphabétiquement ; 	
+		// 8.	Récupérer une liste des employés triée alphabétiquement ; 	
 		System.out.println("\nLa liste des employés triés alphabetiquement :");
 		employesList.stream().sorted(Comparator.comparing(e->e.getName()))
         .collect(Collectors.toList()).forEach(System.out::println);
 		
-		//TODO 9.	Récupérer une liste des employés triée par âge et s’ils ont le même âge par salaire décroissant ;  Stream.sorted() + Comparator.comparing() + Comparator.thenComparing()
+		// 9.	Récupérer une liste des employés triée par âge et s’ils ont le même âge par salaire décroissant ;  Stream.sorted() + Comparator.comparing() + Comparator.thenComparing()
 		System.out.println("\nLa liste des employés triée par âge et s’ils ont le même âge par salaire décroissant_______________________________________");
 		 	Comparator<Employe> AgeComparator = Comparator.comparing(Employe::getAge);
 	        Comparator<Employe> salaryAgeComparator = AgeComparator.thenComparing(Employe::getSalary).reversed();
@@ -62,7 +62,7 @@ public class Programme {
 	            System.out.println("Nom & Prénom: "+ employesorted.getName() + " "+ employesorted.getSurname() +" - Age " + employesorted.getAge() + " - Salaire:"+ employesorted.getSalary());
 	        }
 	        
-	    //TODO Récupérer une liste de 2 employés à partir du 3ième ;Stream.limit() + Stream.skeep()
+	    // Récupérer une liste de 2 employés à partir du 3ième ;Stream.limit() + Stream.skeep()
 			System.out.println("\nRécupérer une liste des 2 employés à partir du 3ième_______________________________________");
 			Stream<Employe> sEmp = employesList.stream();
 			List<Employe> limit2 = sEmp.skip(2).limit(2).collect(Collectors.toList());
@@ -78,26 +78,29 @@ public class Programme {
 	            System.out.println("Nom & Prénom: "+ employeListLimit.getName() + " "+ employeListLimit.getSurname() +" - Age " + employeListLimit.getAge() + " - Salaire:"+ employeListLimit.getSalary());
 	        }
 		
-		//TODO	Grouper les employés par id de département. Afficher le résultat ; 	          Stream.collect() + Collectors.groupingBy()
+		//	Grouper les employés par id de département. Afficher le résultat ; 	          Stream.collect() + Collectors.groupingBy()
 			System.out.println("\nGrouper les employés par id de département. Afficher le résultat _____________________________");
 			 Map<String, List<Employe>> groupByDepartMap = employesList.stream().collect(Collectors.groupingBy(Employe::getNameDepartement));//ou bien getDepartement
-			 groupByDepartMap.forEach((k, v) -> System.out.println("\nDépartement: " +k +"   \n" + "   Nom   | Prénom| DateNaiss  |Sexe| Age | Est marié(e)? | Salaire\n" +
-					   ((List < Employe > ) v).stream().map(m -> "- "+ m.getName()+" | "+ m.getSurname()+" | "+ m.getDateOfBirth()+" | "+ m.getSexe()+" | "+ m.getAge() +" | "+ m.toStringMarried()+" | "+ m.getSalary()+"\n")
-					  .collect(Collectors.joining(""))));
+			 groupByDepartMap.forEach(
+					 (k, v) -> System.out.println("\nDépartement: " +k +"   \n" + "   Nom   | Prénom| DateNaiss  |Sexe| Age | Est marié(e)? | Salaire\n" +
+					   ((List < Employe > ) v).stream()
+					   						.map(m -> "- "+ m.getName()+" | "+ m.getSurname()+" | "+ m.getDateOfBirth()+" | "+ m.getSexe()+" | "+ m.getAge() +" | "+ m.toStringMarried()+" | "+ m.getSalary()+"\n")
+					   						.collect(Collectors.joining(""))));
 			 System.out.println(groupByDepartMap);
 			
-		//TODO	Diviser la liste des employés en deux : célibataire(s) et marié(e)(s) ; Stream.collect() + Collectors.partitionningBy()
-		System.out.println(employesList.stream().collect(Collectors.partitioningBy(Employe::getMaried)));
-
-		//TODO	Faire une jointure entre la liste des employés et des départements. Puis afficher pour chaque employé son nom et prénom ainsi que le nom de son département      Stream.flatMap() + Stream.map() + classe javax.util.Pair<K,V>
+		//	Diviser la liste des employés en deux : célibataire(s) et marié(e)(s) ; Stream.collect() + Collectors.partitionningBy()
+		System.out.println("La liste des employés mariés: \n" + employesList.stream().collect(Collectors.partitioningBy(Employe::getMaried))+"\n");
+		System.out.println("La liste des employés célibataire: \n" + employesList.stream().collect(Collectors.partitioningBy(e->e.getMaried()==false)));
+		//	Faire une jointure entre la liste des employés et des départements. Puis afficher pour chaque employé son nom et prénom ainsi que le nom de son département      Stream.flatMap() + Stream.map() + classe javax.util.Pair<K,V>
         System.out.println("\nchaque employé son nom et prénom ainsi que le nom de son département___________________________________________");
-		List<Pair<Employe,Departement>> listEmpDep = employesList.stream()
+		
+        List<Pair<Employe,Departement>> listEmpDep = employesList.stream()
 															   .flatMap(e-> departementsList.stream().filter(d-> d.getIdDep() == e.getDepartement().getIdDep()) // jointure au lieu du produit cartésien
 															   .map(d-> new Pair<Employe,Departement>(e,d)))
 															   .collect(Collectors.toList());
 		listEmpDep.forEach(ed->System.out.println(ed.getKey()+ " "+ed.getValue()));
 		  	
-		//TODO	Afficher le salaire minimum, maximum et moyen
+		//	Afficher le salaire minimum, maximum et moyen
         System.out.println("\nAfficher le salaire minimum, maximum et moyen____________________________________________");
 		DoubleSummaryStatistics salaryMinMax = employesList.stream().collect(Collectors.summarizingDouble(Employe::getSalary));
 		System.out.println("Le salaire minimum est: "+salaryMinMax.getMin());
