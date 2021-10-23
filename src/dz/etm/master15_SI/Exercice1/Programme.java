@@ -42,13 +42,13 @@ public class Programme {
 					.forEach(System.out::println);
 		System.out.println("\nLa liste des hommes mariés :");
 		employesList.stream()  
-        .filter(e -> (e.getSexe() == 'm' && e.getMaried()))  // filtering price 
+        .filter(e -> (e.getSexe() == 'm' && e.getMaried())) 
         .map(em -> em.toString())
 		.forEach(System.out::println);
 		
 		System.out.println("\n____________________________________________________________________________________");
 		//TODO 8.	Récupérer une liste des employés triée alphabétiquement ; 	
-		System.out.println("\nLa liste des ployés triés alphabetiquement :");
+		System.out.println("\nLa liste des employés triés alphabetiquement :");
 		employesList.stream().sorted(Comparator.comparing(e->e.getName()))
         .collect(Collectors.toList()).forEach(System.out::println);
 		
@@ -72,7 +72,7 @@ public class Programme {
 			
 		//TODO	Récupérer une liste sans répétition des prénoms des employés ; Stream.map() + Stream.distinct()
 			System.out.println("\nLa liste sans répétition des prénoms des employés___________________________________________");
-			employesList.stream().map(e -> e.getName()).distinct()
+			employesList.stream().map(e -> e.getSurname()).distinct()
 										.collect(Collectors.toList()).forEach(System.out::println);
 			for (Employe employeListLimit : limit2) {
 	            System.out.println("Nom & Prénom: "+ employeListLimit.getName() + " "+ employeListLimit.getSurname() +" - Age " + employeListLimit.getAge() + " - Salaire:"+ employeListLimit.getSalary());
@@ -80,7 +80,7 @@ public class Programme {
 		
 		//TODO	Grouper les employés par id de département. Afficher le résultat ; 	          Stream.collect() + Collectors.groupingBy()
 			System.out.println("\nGrouper les employés par id de département. Afficher le résultat _____________________________");
-			 Map<String, List<Employe>> groupByDepartMap = employesList.stream().collect(Collectors.groupingBy(Employe::getNameDepartement));
+			 Map<String, List<Employe>> groupByDepartMap = employesList.stream().collect(Collectors.groupingBy(Employe::getNameDepartement));//ou bien getDepartement
 			 groupByDepartMap.forEach((k, v) -> System.out.println("\nDépartement: " +k +"   \n" + "   Nom   | Prénom| DateNaiss  |Sexe| Age | Est marié(e)? | Salaire\n" +
 					   ((List < Employe > ) v).stream().map(m -> "- "+ m.getName()+" | "+ m.getSurname()+" | "+ m.getDateOfBirth()+" | "+ m.getSexe()+" | "+ m.getAge() +" | "+ m.toStringMarried()+" | "+ m.getSalary()+"\n")
 					  .collect(Collectors.joining(""))));
